@@ -1,4 +1,4 @@
-package com.blexven.dependency_injection;
+package com.blexven.dependent;
 
 public class Hello implements Greeting {
     public void show() {

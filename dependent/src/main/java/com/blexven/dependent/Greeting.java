@@ -1,4 +1,4 @@
-package com.blexven.dependency_injection;
+package com.blexven.dependent;
 
 public interface Greeting {
     void show();
