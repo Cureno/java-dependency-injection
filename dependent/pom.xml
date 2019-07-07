@@ -15,13 +15,28 @@
     </parent>
 
     <dependencies>
-        <!-- no source code dependencies -->
+        <dependency>
+            <groupId>com.blexven</groupId>
+            <artifactId>injector</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 
     <build>
         <plugins>
-
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <annotationProcessorPaths>
+                    </annotationProcessorPaths>
+                    <annotationProcessors>
+                        <annotationProcessor>com.blexven.injector.Injector</annotationProcessor>
+                    </annotationProcessors>
+                </configuration>
+            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
