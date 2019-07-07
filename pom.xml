@@ -10,9 +10,10 @@
     <packaging>pom</packaging>
 
     <properties>
+        <my-preferred-encoding>UTF-8</my-preferred-encoding>
         <java.version>1.8</java.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.build.sourceEncoding>${my-preferred-encoding}</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>${my-preferred-encoding}</project.reporting.outputEncoding>
     </properties>
 
 
