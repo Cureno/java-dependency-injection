@@ -7,6 +7,7 @@
     <groupId>com.blexven</groupId>
     <artifactId>injector</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <dependencies>
         <!-- no source code dependencies -->
