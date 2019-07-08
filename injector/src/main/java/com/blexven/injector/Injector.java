@@ -21,7 +21,6 @@ public class Injector extends AbstractProcessor {
             });
         }
 
-
-        return false;
+        return true; // signal that we're done with processing
     }
 }
