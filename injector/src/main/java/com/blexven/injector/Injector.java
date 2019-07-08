@@ -8,7 +8,7 @@ import javax.lang.model.SourceVersion;
 import javax.lang.model.element.TypeElement;
 import java.util.Set;
 
-@SupportedAnnotationTypes("com.blexven.dependent.PleaseWork")
+@SupportedAnnotationTypes("com.blexven.injector.PleaseWork")
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class Injector extends AbstractProcessor {
     @Override
