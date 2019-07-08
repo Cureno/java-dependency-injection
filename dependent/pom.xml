@@ -30,11 +30,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
                 <configuration>
-                    <annotationProcessorPaths>
-                    </annotationProcessorPaths>
-                    <annotationProcessors>
-                        <annotationProcessor>com.blexven.injector.Injector</annotationProcessor>
-                    </annotationProcessors>
+                    <showWarnings>true</showWarnings>
                 </configuration>
             </plugin>
 
