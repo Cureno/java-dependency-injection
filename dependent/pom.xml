@@ -31,6 +31,7 @@
                 <version>3.8.0</version>
                 <configuration>
                     <showWarnings>true</showWarnings>
+                    <compilerArgument>-XprintRounds</compilerArgument>
                 </configuration>
             </plugin>
 
