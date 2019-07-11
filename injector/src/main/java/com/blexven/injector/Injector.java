@@ -39,6 +39,9 @@ public class Injector extends AbstractProcessor {
 
         for (Element element : roundEnv.getElementsAnnotatedWith(PleaseWork.class)) {
 
+            if (!element.getKind().isField())
+                continue;
+
             Element enclosingElement = element.getEnclosingElement();
             VariableElement annotatedVariable = (VariableElement) element;
 
