@@ -22,6 +22,15 @@
         <module>injector</module>
     </modules>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.sun</groupId>
+            <artifactId>tools</artifactId>
+            <scope>system</scope>
+            <systemPath>${java.home}/../lib/tools.jar</systemPath>
+            <version>RELEASE</version>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>

@@ -1,13 +1,20 @@
 package com.blexven.injector;
 
-import javax.annotation.processing.*;
+import com.sun.tools.javac.model.JavacElements;
+import com.sun.tools.javac.model.JavacTypes;
+import com.sun.tools.javac.processing.JavacFiler;
+import com.sun.tools.javac.processing.JavacMessager;
+import com.sun.tools.javac.processing.JavacProcessingEnvironment;
+
+import javax.annotation.processing.AbstractProcessor;
+import javax.annotation.processing.ProcessingEnvironment;
+import javax.annotation.processing.RoundEnvironment;
+import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
-import javax.lang.model.util.Elements;
-import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -17,9 +24,11 @@ import java.util.Set;
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class Injector extends AbstractProcessor {
 
-    private Elements elementUtils;
-    private Filer filer;
-    private Messager messager;
+    private JavacElements javacElements;
+    private JavacFiler javacFiler;
+    private JavacMessager javacMessager;
+    private JavacProcessingEnvironment javacProcessingEnvironment;
+    private JavacTypes javacTypeUtils;
 
     @Override
     public Set<String> getSupportedAnnotationTypes() {
@@ -29,9 +38,14 @@ public class Injector extends AbstractProcessor {
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
-        elementUtils = processingEnv.getElementUtils();
-        filer = processingEnv.getFiler();
-        messager = processingEnv.getMessager();
+
+        // cast to a more specific implementation, to use extra features
+        javacProcessingEnvironment = ((JavacProcessingEnvironment) processingEnv);
+        javacElements = javacProcessingEnvironment.getElementUtils();
+        javacFiler = ((JavacFiler) processingEnv.getFiler());
+        javacMessager = ((JavacMessager) this.javacProcessingEnvironment.getMessager());
+        javacTypeUtils = javacProcessingEnvironment.getTypeUtils();
+
     }
 
     @Override
@@ -46,10 +60,11 @@ public class Injector extends AbstractProcessor {
             VariableElement annotatedVariable = (VariableElement) element;
 
             String generatedClassName = enclosingElement.getSimpleName() + "Injected";
-            PackageElement packageName = elementUtils.getPackageOf(element);
+            PackageElement packageName = javacElements.getPackageOf(element);
 
             try {
-                JavaFileObject sourceFile = filer.createSourceFile(generatedClassName, element);
+                JavaFileObject sourceFile = javacFiler.createSourceFile(generatedClassName, element);
+
 
                 try (OutputStream out = sourceFile.openOutputStream()) {
 
@@ -83,7 +98,7 @@ public class Injector extends AbstractProcessor {
     }
 
     private void printGeneratedContents(String contents) {
-        messager.printMessage(Diagnostic.Kind.WARNING, "Contents: \n\n" + contents + "\n");
+        javacMessager.printWarning("Contents: \n\n" + contents + "\n");
     }
 
 
