@@ -43,7 +43,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.blexven.dependent.IndirectHello</mainClass>
+                            <mainClass>com.blexven.dependent.IndirectHello${injectedClassesSuffix}</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
