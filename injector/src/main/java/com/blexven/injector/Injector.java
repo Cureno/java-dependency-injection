@@ -85,7 +85,19 @@ public class Injector extends AbstractProcessor {
 
                             "private String asType = \"" + annotatedVariable.asType() + "\";\n\t" +
 
-                            "private " + type + " " + annotatedVariable + " = " + injectedConstructorCall + ";\n" +
+                            "private String context = \"" + javacProcessingEnvironment.getContext() + "\";\n\t" +
+                            "private String specifiedPackages = \"" + javacProcessingEnvironment.getSpecifiedPackages() + "\";\n\t" +
+                            "private String sourceVersion = \"" + javacProcessingEnvironment.getSourceVersion() + "\";\n\t" +
+                            "private String processorClassLoader = \"" + javacProcessingEnvironment.getProcessorClassLoader() + "\";\n\t" +
+                            "private String classLoader = \"" + getClass().getClassLoader() + "\";\n\t" +
+
+                            "private " + type + " " + annotatedVariable + " = " + injectedConstructorCall + ";\n\n" +
+
+                            "\tpublic static void main(String[] args) {\n" +
+
+                            "\t\tSystem.out.println(\"main from the generated/injected main method\");\n" +
+
+                            "\t}\n" +
 
                             "}";
 
