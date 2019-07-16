@@ -125,11 +125,14 @@ public class Injector extends AbstractProcessor {
     }
 
     private void loadDependecyMapping() {
-        try (InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream("dependencies.properties")) {
+        String dependenciesFile = "dependencies.properties";
+        try (InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream(dependenciesFile)) {
             properties = new Properties();
             properties.load(resourceAsStream);
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (NullPointerException e) {
+            javacMessager.printError("Could not find your <<" + dependenciesFile + ">> file in the <<resources>> directory");
         }
     }
 
