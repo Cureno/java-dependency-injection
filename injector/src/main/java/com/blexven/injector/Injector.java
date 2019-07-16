@@ -17,8 +17,10 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.tools.JavaFileObject;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Collections;
+import java.util.Properties;
 import java.util.Set;
 
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
@@ -29,6 +31,7 @@ public class Injector extends AbstractProcessor {
     private JavacMessager javacMessager;
     private JavacProcessingEnvironment javacProcessingEnvironment;
     private JavacTypes javacTypeUtils;
+    private Properties properties;
 
     @Override
     public Set<String> getSupportedAnnotationTypes() {
@@ -46,6 +49,7 @@ public class Injector extends AbstractProcessor {
         javacMessager = ((JavacMessager) this.javacProcessingEnvironment.getMessager());
         javacTypeUtils = javacProcessingEnvironment.getTypeUtils();
 
+        loadDependecyMapping();
     }
 
     @Override
@@ -106,5 +110,14 @@ public class Injector extends AbstractProcessor {
         int lastIndex = annotatedVariable.asType().toString()
                                          .lastIndexOf(".");
         return annotatedVariable.asType().toString().substring(lastIndex + 1);
+    }
+
+    private void loadDependecyMapping() {
+        try (InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream("dependencies.properties")) {
+            properties = new Properties();
+            properties.load(resourceAsStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
