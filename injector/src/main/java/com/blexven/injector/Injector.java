@@ -103,7 +103,7 @@ public class Injector extends AbstractProcessor {
 
                     out.write(contents.getBytes());
 
-                    printGeneratedContents(contents);
+                    printGeneratedContents(sourceFile.getName(), contents);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -113,8 +113,8 @@ public class Injector extends AbstractProcessor {
         return true; // signal that we're done with processing
     }
 
-    private void printGeneratedContents(String contents) {
-        javacMessager.printWarning("Contents: \n\n" + contents + "\n");
+    void printGeneratedContents(String name, String contents) {
+        javacMessager.printWarning(name + "'s contents: \n\n" + contents + "\n");
     }
 
 
