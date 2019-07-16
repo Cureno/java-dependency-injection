@@ -74,7 +74,7 @@ public class Injector extends AbstractProcessor {
 
                     String type = simpleTypeOf(annotatedVariable);
 
-                    String dependencyToBeInjected = "Hello";
+                    String dependencyToBeInjected = findCodeToBeInjected(annotatedVariable.asType().toString());
                     String injectedConstructorCall = "new " + dependencyToBeInjected + "()";
 
                     String contents =
@@ -131,5 +131,11 @@ public class Injector extends AbstractProcessor {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private String findCodeToBeInjected(String dependency) {
+        String mapping = properties.getProperty(dependency);
+        System.out.println("\t" + dependency + " mapped to " + mapping);
+        return mapping;
     }
 }
